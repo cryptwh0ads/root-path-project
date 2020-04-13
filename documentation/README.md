@@ -17,10 +17,27 @@ This API was written in NodeJS (Firebase).
 ```JSON
 {
     "shortUser": "user",
-    "bodyMessage": "something text here",
+    "bodyMessage": "some text here",
 }
 ```
 
 #### Get posts
 
 `GET /api/posts`: gets all posts.
+
+### Sign up
+
+#### Register new user
+
+`POST /api/signup`: creates a new user.
+
+#### Body example
+
+```JSON
+{
+    "shortName": "user",
+    "email": "some email here",
+    "passwd": "some pass here",
+    "confirmPasswd": "confirm pass here",
+}
+```
