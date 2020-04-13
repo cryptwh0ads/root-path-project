@@ -25,7 +25,7 @@ This API was written in NodeJS (Firebase).
 
 `GET /api/posts`: gets all posts.
 
-### Sign up
+### Session
 
 #### Register new user
 
@@ -39,5 +39,18 @@ This API was written in NodeJS (Firebase).
     "email": "some email here",
     "passwd": "some pass here",
     "confirmPasswd": "confirm pass here",
+}
+```
+
+#### Login w/ user's email
+
+`POST /api/login`: login w/ user's email.
+
+#### Body example
+
+```JSON
+{
+    "email": "some email here",
+    "passwd": "some pass here",
 }
 ```
