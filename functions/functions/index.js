@@ -43,7 +43,7 @@ app.post("/post", (req, res) => {
   db.collection("posts")
     .add(newPost)
     .then((data) => {
-      res.json({ message: `Document ${data.id} created successfully!` });
+      res.json({ message: `Post ${data.id} created successfully!` });
     })
     .catch((err) => {
       res.status(500).json({ error: "Something went wrong!" });
@@ -65,14 +65,24 @@ app.post("/signup", (req, res) => {
   };
 
   // TODO: validate data
-
-  firebase
-    .auth()
-    .createUserWithEmailAndPassword(newUser.email, newUser.passwd)
-    .then((user) => {
-      return res.status(201).json({
-        message: `User ${user.user.email} has been registered successfully!`,
-      });
+  db.doc(`/users/${newUser.shortName}`)
+    .get()
+    .then((data) => {
+      if (data.exists) {
+        return res
+          .status(400)
+          .json({ error: "This shortName is already taken" });
+      } else {
+        return firebase
+          .auth()
+          .createUserWithEmailAndPassword(newUser.email, newUser.passwd);
+      }
+    })
+    .then((data) => {
+      return data.user.getIdToken();
+    })
+    .then((token) => {
+      return res.status(201).json({ token });
     })
     .catch((err) => {
       console.error(err);
