@@ -11,6 +11,9 @@ admin.initializeApp();
 
 // Get all Posts
 exports.getPosts = functions.https.onRequest((req, res) => {
+  if (req.method !== "GET") {
+    return res.status(400).json({ error: "Method not allowed" });
+  }
   admin
     .firestore()
     .collection("posts")
@@ -27,6 +30,9 @@ exports.getPosts = functions.https.onRequest((req, res) => {
 
 // Create a new Post
 exports.createPost = functions.https.onRequest((req, res) => {
+  if (req.method !== "POST") {
+    return res.status(400).json({ error: "Method not allowed" });
+  }
   const { bodyMessage, shortUser } = req.body;
   let createdAt = admin.firestore.Timestamp.fromDate(new Date());
   const newPost = {
