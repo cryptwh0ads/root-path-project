@@ -56,6 +56,17 @@ app.post("/post", (req, res) => {
  * SIGNUP ROUTE
  */
 
+const isEmail = (email) => {
+  const regEx = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\0-9]+\.)+[a-zA-Z]{2,}))$/;
+  if (email.match(regEx)) return true;
+  else return false;
+};
+
+const isEmpty = (string) => {
+  if (string.trim() === "") return true;
+  else return false;
+};
+
 app.post("/signup", (req, res) => {
   const { email, passwd, confirmPasswd, shortName } = req.body;
   const newUser = {
@@ -65,7 +76,22 @@ app.post("/signup", (req, res) => {
     shortName,
   };
 
-  // TODO: validate data
+  let errors = {};
+  // Validate email
+  if (isEmpty(newUser.email)) {
+    errors.email = "Email must not be empty";
+  } else if (!isEmail(newUser.email)) {
+    errors.email = "Must be a valid email address";
+  }
+  // Validate pass
+  if (isEmpty(newUser.passwd)) errors.passwd = "Must not be empty";
+  if (newUser.passwd !== newUser.confirmPasswd)
+    errors.confirmPasswd = "Passwords must match";
+  // Validate short name
+  if (isEmpty(newUser.shortName)) errors.shortName = "Must not be empty";
+
+  if (Object.keys(errors).length > 0) return res.status(400).json(errors);
+
   let token, userId;
   db.doc(`/users/${newUser.shortName}`)
     .get()
