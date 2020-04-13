@@ -6,16 +6,10 @@ const app = require("express")();
 
 admin.initializeApp();
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBmaclgIacb_skoQnxdua-kG9bq2NNlWeQ",
-  authDomain: "root-path-project.firebaseapp.com",
-  databaseURL: "https://root-path-project.firebaseio.com",
-  projectId: "root-path-project",
-  storageBucket: "root-path-project.appspot.com",
-  messagingSenderId: "74706554388",
-  appId: "1:74706554388:web:8f256064c1a345c62a6101",
-};
+const firebaseConfig = require("./firebaseConfig");
 firebase.initializeApp(firebaseConfig);
+
+const db = admin.firestore();
 
 /**
  * POST ROUTE
@@ -23,9 +17,7 @@ firebase.initializeApp(firebaseConfig);
 
 // Get all Posts
 app.get("/posts", (req, res) => {
-  admin
-    .firestore()
-    .collection("posts")
+  db.collection("posts")
     .orderBy("createdAt", "desc")
     .get()
     .then((data) => {
@@ -48,9 +40,7 @@ app.post("/post", (req, res) => {
     createdAt,
   };
 
-  admin
-    .firestore()
-    .collection("posts")
+  db.collection("posts")
     .add(newPost)
     .then((data) => {
       res.json({ message: `Document ${data.id} created successfully!` });
