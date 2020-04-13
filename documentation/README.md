@@ -2,7 +2,7 @@
 
 This API was written in NodeJS (Firebase).
 
->**Remember**: This project has been in development phase
+> **Remember**: This project has been in development phase
 
 ## Endpoints
 
@@ -10,7 +10,7 @@ This API was written in NodeJS (Firebase).
 
 #### Create a new post
 
-`POST /createPost`: creates a new post.
+`POST /api/post`: creates a new post.
 
 #### Body example
 
@@ -23,4 +23,4 @@ This API was written in NodeJS (Firebase).
 
 #### Get posts
 
-`GET /getPosts`: gets all posts.
+`GET /api/posts`: gets all posts.
