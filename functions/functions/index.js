@@ -6,7 +6,8 @@ const app = require("express")();
 
 admin.initializeApp();
 
-const firebaseConfig = require("./firebaseConfig");
+const { firebaseConfig } = require("./firebaseConfig");
+
 firebase.initializeApp(firebaseConfig);
 
 const db = admin.firestore();
@@ -65,10 +66,11 @@ app.post("/signup", (req, res) => {
   };
 
   // TODO: validate data
+  let token, userId;
   db.doc(`/users/${newUser.shortName}`)
     .get()
-    .then((data) => {
-      if (data.exists) {
+    .then((doc) => {
+      if (doc.exists) {
         return res
           .status(400)
           .json({ error: "This shortName is already taken" });
@@ -79,9 +81,21 @@ app.post("/signup", (req, res) => {
       }
     })
     .then((data) => {
+      userId = data.user.uid;
       return data.user.getIdToken();
     })
-    .then((token) => {
+    .then((idToken) => {
+      token = idToken;
+      const userCredentials = {
+        shortName: newUser.shortName,
+        email: newUser.email,
+        createdAt: new Date().toISOString(),
+        userId,
+      };
+
+      return db.doc(`/users/${newUser.shortName}`).set(userCredentials);
+    })
+    .then(() => {
       return res.status(201).json({ token });
     })
     .catch((err) => {
