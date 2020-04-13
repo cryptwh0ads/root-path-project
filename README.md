@@ -13,7 +13,7 @@ $ ./just-do-it.sh
 Reach out to me at one of the following places!
 
 - Linkedin at <a href="https://www.linkedin.com/in/vinicius-cruz/" target="blank">`/vinicius-cruz`</a>
-- Email at <a href="wh0adscrypt@gmail.com" target="blank">`wh0adscrypt@gmail.com`</a>.
+- Email at <a href="mailto:wh0adscrypt@gmail.com" target="blank">`wh0adscrypt@gmail.com`</a>.
 - Phone at <a href="https://api.whatsapp.com/send?phone=5511988729271" target="blank">+55 (11) 98872-9271 </a>
 
 
