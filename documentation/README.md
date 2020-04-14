@@ -35,6 +35,24 @@ This API was written in NodeJS (Firebase).
 }
 ```
 
+#### Like a post (need auth)
+
+`GET /api/post/:postId/like`: make a liked post.
+
+> **Note**: This route, don't need a body.
+
+#### Unlike a post (need auth)
+
+`GET /api/post/:postId/unlike`: make a unliked post.
+
+> **Note**: This route, don't need a body.
+> 
+#### Delete a post (need auth)
+
+`DELETE /api/post/:postId`: delete post.
+
+> **Note**: This route, don't need a body.
+
 #### Get posts
 
 `GET /api/posts`: gets all posts.
