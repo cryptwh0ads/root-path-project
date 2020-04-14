@@ -8,7 +8,7 @@ This API was written in NodeJS (Firebase).
 
 ### Posts
 
-#### Create a new post
+#### Create a new post (need auth)
 
 `POST /api/post`: creates a new post.
 
@@ -20,6 +20,8 @@ This API was written in NodeJS (Firebase).
     "bodyMessage": "some text here",
 }
 ```
+
+> **Remember**: The returned token must be added to the authorization params in the headers.
 
 #### Get posts
 
