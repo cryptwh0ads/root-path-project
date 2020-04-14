@@ -46,7 +46,7 @@ This API was written in NodeJS (Firebase).
 
 #### Login w/ user's email
 
-`POST /api/login`: login w/ user's email.
+`POST /api/login`: login w/ user's email to get token.
 
 #### Body example
 
@@ -56,3 +56,15 @@ This API was written in NodeJS (Firebase).
     "passwd": "some pass here",
 }
 ```
+
+#### Upload profile image
+
+`POST /api/user/image`: update profile picture. (Need auth)
+
+#### Body example
+
+```form-data
+    The API expect to send a file's key called 'image'
+```
+
+> **Note**: The endpoint expect a image file type, and reject all other file type.
