@@ -156,3 +156,30 @@ exports.addUserBio = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
+
+exports.getAuthUser = (req, res) => {
+  let userData = {};
+
+  db.doc(`/users/${req.user.shortName}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        userData.credentials = doc.data();
+        return db
+          .collection("likes")
+          .where("shortName", "==", req.user.shortName)
+          .get();
+      }
+    })
+    .then((data) => {
+      userData.likes = [];
+      data.forEach((doc) => {
+        userData.likes.push(doc.data());
+      });
+      return res.json(userData);
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
