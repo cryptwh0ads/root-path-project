@@ -10,6 +10,7 @@ const {
   commentPost,
   likePost,
   unlikePost,
+  deletePost,
 } = require("./routes/posts");
 const {
   signUp,
@@ -22,7 +23,6 @@ const {
 /**
  * POSTS ROUTE
  */
-// TODO: Create 'delete', 'like' and 'unlike' routes to post
 
 // Get all Posts
 app.get("/posts", getPosts);
@@ -32,6 +32,7 @@ app.get("/post/:postId", getPost);
 app.post("/post/:postId/comment", BAuth, commentPost);
 app.get("/post/:postId/like", BAuth, likePost);
 app.get("/post/:postId/unlike", BAuth, unlikePost);
+app.delete("/post/:postId", BAuth, deletePost);
 
 /**
  * SESSION ROUTE
