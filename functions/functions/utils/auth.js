@@ -24,7 +24,7 @@ const BAuth = (req, res, next) => {
         .get();
     })
     .then((data) => {
-      req.user.shortUser = data.docs[0].data().shortName;
+      req.user.shortName = data.docs[0].data().shortName;
       return next();
     })
     .catch((err) => {
