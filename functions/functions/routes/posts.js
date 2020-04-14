@@ -71,3 +71,32 @@ exports.getPost = (req, res) => {
       res.status(500).json({ error: err.code });
     });
 };
+
+exports.commentPost = (req, res) => {
+  if (req.body.bodyMessage.trim() === "")
+    return res.status(400).json({ error: "Must not be empty" });
+
+  const newComment = {
+    bodyMessage: req.body.bodyMessage,
+    createdAt: new Date().toISOString(),
+    postId: req.params.postId,
+    shortName: req.user.shortName,
+    userImage: req.user.imageUrl,
+  };
+
+  db.doc(`/posts/${req.params.postId}`)
+    .get()
+    .then((doc) => {
+      if (!doc.exists) {
+        return res.status(404).json({ error: "Post not found!" });
+      }
+      return db.collection("comments").add(newComment);
+    })
+    .then(() => {
+      res.json(newComment);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).json({ error: err.code });
+    });
+};
