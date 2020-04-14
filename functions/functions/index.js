@@ -8,6 +8,8 @@ const {
   createPost,
   getPost,
   commentPost,
+  likePost,
+  unlikePost,
 } = require("./routes/posts");
 const {
   signUp,
@@ -28,6 +30,8 @@ app.get("/posts", getPosts);
 app.post("/post", BAuth, createPost);
 app.get("/post/:postId", getPost);
 app.post("/post/:postId/comment", BAuth, commentPost);
+app.get("/post/:postId/like", BAuth, likePost);
+app.get("/post/:postId/unlike", BAuth, unlikePost);
 
 /**
  * SESSION ROUTE
