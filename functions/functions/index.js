@@ -4,7 +4,13 @@ const app = require("express")();
 
 const { BAuth } = require("./utils/auth");
 const { getPosts, createPost } = require("./routes/posts");
-const { signUp, login, uploadImage, addUserBio } = require("./routes/users");
+const {
+  signUp,
+  login,
+  uploadImage,
+  addUserBio,
+  getAuthUser,
+} = require("./routes/users");
 
 /**
  * POSTS ROUTE
@@ -19,6 +25,7 @@ app.post("/post", BAuth, createPost);
  * SESSION ROUTE
  */
 
+app.get("/user", BAuth, getAuthUser);
 // Register user
 app.post("/signup", signUp);
 // Login route

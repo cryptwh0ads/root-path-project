@@ -84,4 +84,4 @@ This API was written in NodeJS (Firebase).
     }
 ```
 
-> **Note**: The endpoint expect a image file type, and reject all other file type.
+> **Note**: You don't need to add 'http', but if your website have SSL (https), add it.
