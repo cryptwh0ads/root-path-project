@@ -93,10 +93,6 @@ exports.login = (req, res) => {
 };
 
 exports.uploadImage = (req, res) => {
-  if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
-    return res.status(400).json({ error: "Wrong file type submitted" });
-  }
-
   const BusBoy = require("busboy");
   const path = require("path");
   const os = require("os");
@@ -109,6 +105,9 @@ exports.uploadImage = (req, res) => {
 
   busboy.on("file", (fieldname, file, filename, enconding, mimetype) => {
     // image.png
+    if (mimetype !== "image/jpeg" && mimetype !== "image/png") {
+      return res.status(400).json({ error: "Wrong file type submitted" });
+    }
     const imageExtension = filename.split(".")[filename.split(".").length - 1];
     imageFileName = `${Math.random() * 10000000000}.${imageExtension}`;
     const filepath = path.join(os.tmpdir(), imageFileName);

@@ -23,6 +23,18 @@ This API was written in NodeJS (Firebase).
 
 > **Remember**: The returned token must be added to the authorization params in the headers.
 
+#### Create a new post comment (need auth)
+
+`POST /api/post/:postId/comment`: creates a new post comment.
+
+#### Body example
+
+```JSON
+{
+    "bodyMessage": "some text here",
+}
+```
+
 #### Get posts
 
 `GET /api/posts`: gets all posts.
