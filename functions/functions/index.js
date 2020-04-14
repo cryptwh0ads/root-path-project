@@ -4,7 +4,7 @@ const app = require("express")();
 
 const { BAuth } = require("./utils/auth");
 const { getPosts, createPost } = require("./routes/posts");
-const { signUp, login } = require("./routes/users");
+const { signUp, login, uploadImage } = require("./routes/users");
 
 /**
  * POSTS ROUTE
@@ -23,5 +23,7 @@ app.post("/post", BAuth, createPost);
 app.post("/signup", signUp);
 // Login route
 app.post("/login", login);
+// Upload user image file
+app.post("/user/image", BAuth, uploadImage);
 
 exports.api = functions.https.onRequest(app);
