@@ -16,7 +16,7 @@ This API was written in NodeJS (Firebase).
 
 ```JSON
 {
-    "shortUser": "user",
+    "shortName": "user",
     "bodyMessage": "some text here",
 }
 ```
@@ -65,6 +65,23 @@ This API was written in NodeJS (Firebase).
 
 ```form-data
     The API expect to send a file's key called 'image'
+```
+
+> **Note**: The endpoint expect a image file type, and reject all other file type.
+
+
+#### Update User's Bio
+
+`POST /api/user`: update profile bio. (Need auth)
+
+#### Body example
+
+```json
+    {
+        "bio": "Some bio here",
+        "website": "www.your-website.com",
+        "location": "Sao Paulo - Brazil",
+    }
 ```
 
 > **Note**: The endpoint expect a image file type, and reject all other file type.

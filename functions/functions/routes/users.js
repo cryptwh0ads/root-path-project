@@ -5,7 +5,11 @@ const { firebaseConfig } = require("../utils/firebaseConfig");
 const firebase = require("firebase");
 firebase.initializeApp(firebaseConfig);
 
-const { validateSignUp, validateLogin } = require("../utils/validators");
+const {
+  validateSignUp,
+  validateLogin,
+  reduceUserBio,
+} = require("../utils/validators");
 
 exports.signUp = (req, res) => {
   const { email, passwd, confirmPasswd, shortName } = req.body;
@@ -126,7 +130,7 @@ exports.uploadImage = (req, res) => {
       })
       .then(() => {
         const imageUrl = `https://firebasestorage.googleapis.com/v0/b/${firebaseConfig.storageBucket}/o/${imageFileName}?alt=media`;
-        return db.doc(`/users/${req.user.shortUser}`).update({ imageUrl });
+        return db.doc(`/users/${req.user.shortName}`).update({ imageUrl });
       })
       .then(() => {
         return res.json({ message: "Image uploaded successfully" });
@@ -137,4 +141,18 @@ exports.uploadImage = (req, res) => {
       });
   });
   busboy.end(req.rawBody);
+};
+
+exports.addUserBio = (req, res) => {
+  let userBio = reduceUserBio(req.body);
+
+  db.doc(`/users/${req.user.shortName}`)
+    .update({ userBio })
+    .then(() => {
+      return res.json({ message: "User bio added with successfully!" });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
 };

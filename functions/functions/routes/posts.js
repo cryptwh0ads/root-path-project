@@ -16,7 +16,7 @@ exports.getPosts = (req, res) => {
 
 exports.createPost = (req, res) => {
   const { bodyMessage } = req.body;
-  const { shortUser } = req.user;
+  const { shortName } = req.user;
 
   let createdAt = new Date().toISOString();
 
@@ -25,7 +25,7 @@ exports.createPost = (req, res) => {
   }
 
   const newPost = {
-    shortUser,
+    shortName,
     bodyMessage,
     createdAt,
   };

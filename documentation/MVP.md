@@ -3,9 +3,9 @@
 ## Functional Requirements
 
     [x] - Create a system that allows you to publish posts.
+    [x] - Change of registration data.
     [] - Create comments and likes system.
     [] - Password recovery method.
-    [] - Change of registration data.
     [] - Send confirmation email at account creation.
 
 ## Non-Functional Requirements
@@ -22,9 +22,9 @@
     [x] - The user must be able to register.
     [x] - The user must have a unique 'shortUser' (nick).
     [x] - The user must be able to change his profile photo.
+    [x] - The user should be able to add a short bio, as well as URLs of other networks, where it comes from, among other information.
     [] - The user will only be able to view the posts if he is logged in.
     [] - The user should be able to recover the password if he forgets.
-    [] - The user should be able to add a short bio, as well as URLs of other networks, where it comes from, among other information.
     [] - The search by user must be done by nick or email.
     [] - The user must be able to evaluate friend / connection requests.
     [] - The user must be able to update / delete their own posts.
