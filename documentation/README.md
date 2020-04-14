@@ -27,6 +27,10 @@ This API was written in NodeJS (Firebase).
 
 `GET /api/posts`: gets all posts.
 
+#### Get a post detail
+
+`GET /api/post/:postId`: get all details for a post.
+
 ### Session
 
 #### Register new user
@@ -69,7 +73,6 @@ This API was written in NodeJS (Firebase).
 
 > **Note**: The endpoint expect a image file type, and reject all other file type.
 
-
 #### Update User's Bio
 
 `POST /api/user`: update profile bio. (Need auth)
@@ -85,3 +88,9 @@ This API was written in NodeJS (Firebase).
 ```
 
 > **Note**: You don't need to add 'http', but if your website have SSL (https), add it.
+
+#### Get User authenticated info
+
+`Get /api/user`: get authenticated user's info. (Need auth)
+
+> **Note**: This route, don't need a body.

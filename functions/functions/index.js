@@ -3,7 +3,7 @@ const functions = require("firebase-functions");
 const app = require("express")();
 
 const { BAuth } = require("./utils/auth");
-const { getPosts, createPost } = require("./routes/posts");
+const { getPosts, createPost, getPost } = require("./routes/posts");
 const {
   signUp,
   login,
@@ -15,11 +15,13 @@ const {
 /**
  * POSTS ROUTE
  */
+// TODO: Create 'delete', 'like', 'unlike' and 'comment' routes to post
 
 // Get all Posts
 app.get("/posts", getPosts);
 // Create a new Post
 app.post("/post", BAuth, createPost);
+app.get("/post/:postId", getPost);
 
 /**
  * SESSION ROUTE
