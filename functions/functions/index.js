@@ -31,10 +31,50 @@ app.get("/posts", (req, res) => {
     .catch((err) => console.error(err));
 });
 
+const BAuth = (req, res, next) => {
+  let idToken;
+  if (
+    req.headers.authorization &&
+    req.headers.authorization.startsWith("Bearer ")
+  ) {
+    idToken = req.headers.authorization.split("Bearer ")[1];
+  } else {
+    console.error("No token found");
+    return res.status(403).json({ error: "Unauthorized" });
+  }
+
+  admin
+    .auth()
+    .verifyIdToken(idToken)
+    .then((decodedToken) => {
+      req.user = decodedToken;
+      return db
+        .collection("users")
+        .where("userId", "==", req.user.uid)
+        .limit(1)
+        .get();
+    })
+    .then((data) => {
+      req.user.shortUser = data.docs[0].data().shortName;
+      return next();
+    })
+    .catch((err) => {
+      console.error("Error while verifying token", err);
+      return res.status(403).json(err);
+    });
+};
+
 // Create a new Post
-app.post("/post", (req, res) => {
-  const { bodyMessage, shortUser } = req.body;
+app.post("/post", BAuth, (req, res) => {
+  const { bodyMessage } = req.body;
+  const { shortUser } = req.user;
+
   let createdAt = new Date().toISOString();
+
+  if (req.body.bodyMessage.trim() === "") {
+    return res.status(400).json({ body: "Message must not be empty" });
+  }
+
   const newPost = {
     shortUser,
     bodyMessage,
