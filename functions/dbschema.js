@@ -1,3 +1,7 @@
+/**
+ * The DB structure
+ */
+
 let db = {
   posts: [
     {
@@ -18,6 +22,37 @@ let db = {
       bio: "Bio description",
       website: "website url",
       location: "from here",
+    },
+  ],
+  notifications: [
+    {
+      recipient: "recipient's shortName",
+      sender: "sender's shortName",
+      createdAt: "2020-04-14T23:09:42.128Z",
+      postId: "the postId",
+      type: "like / comment",
+      read: "true or false",
+      notificationId: "notificationId",
+    },
+  ],
+  likes: [
+    {
+      userImage: "user's image profile ",
+      bodyMessage: "comment here",
+      shortName: "user's shortName",
+      likeCount: 0,
+      commentCount: 0,
+      createdAt: "2020-04-14T23:09:42.128Z",
+      postId: "the postId",
+    },
+  ],
+  comments: [
+    {
+      bodyMessage: "comment here",
+      userImage: "user's image profile ",
+      postId: "the postId",
+      createdAt: "2020-04-14T21:38:22.725Z",
+      shortName: "the user's shortName",
     },
   ],
 };
