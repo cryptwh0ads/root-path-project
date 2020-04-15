@@ -58,10 +58,11 @@ exports.api = functions.https.onRequest(app);
 exports.createNotificationOnLike = functions.firestore
   .document("likes/{id}")
   .onCreate((snapshot) => {
-    db.doc(`posts/${snapshot.data().postId}`)
+    return db
+      .doc(`posts/${snapshot.data().postId}`)
       .get()
       .then((doc) => {
-        if (doc.exists) {
+        if (doc.exists && doc.data().shortName !== snapshot.data().shortName) {
           return db.doc(`/notifications/${snapshot.id}`).set({
             createdAt: new Date().toISOString(),
             recipient: doc.data().shortName,
@@ -72,23 +73,17 @@ exports.createNotificationOnLike = functions.firestore
           });
         }
       })
-      .then(() => {
-        return;
-      })
       .catch((err) => {
         console.error(err);
-        return;
       });
   });
 
 exports.deleteNotificationOnUnLike = functions.firestore
   .document("likes/{id}")
   .onDelete((snapshot) => {
-    db.doc(`/notifications/${snapshot.id}`)
+    return db
+      .doc(`/notifications/${snapshot.id}`)
       .delete()
-      .then(() => {
-        return;
-      })
       .catch((err) => {
         console.error(err);
         return;
@@ -98,10 +93,11 @@ exports.deleteNotificationOnUnLike = functions.firestore
 exports.createNotificationOnComment = functions.firestore
   .document("comments/{id}")
   .onCreate((snapshot) => {
-    db.doc(`posts/${snapshot.data().postId}`)
+    return db
+      .doc(`posts/${snapshot.data().postId}`)
       .get()
       .then((doc) => {
-        if (doc.exists) {
+        if (doc.exists && doc.data().shortName !== snapshot.data().shortName) {
           return db.doc(`/notifications/${snapshot.id}`).set({
             createdAt: new Date().toISOString(),
             recipient: doc.data().shortName,
@@ -111,9 +107,6 @@ exports.createNotificationOnComment = functions.firestore
             postId: doc.id,
           });
         }
-      })
-      .then(() => {
-        return;
       })
       .catch((err) => {
         console.error(err);

@@ -6,12 +6,23 @@ exports.getPosts = (req, res) => {
     .get()
     .then((data) => {
       let posts = [];
-      data.forEach((dataItem) => {
-        posts.push(dataItem.data());
+      data.forEach((doc) => {
+        posts.push({
+          postId: doc.id,
+          bodyMessage: doc.data().bodyMessage,
+          shortName: doc.data().shortName,
+          createdAt: doc.data().createdAt,
+          commentCount: doc.data().commentCount,
+          likeCount: doc.data().likeCount,
+          userImage: doc.data().userImage,
+        });
       });
       return res.status(201).json(posts);
     })
-    .catch((err) => console.error(err));
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
 };
 
 exports.createPost = (req, res) => {
@@ -79,7 +90,7 @@ exports.getPost = (req, res) => {
 
 exports.commentPost = (req, res) => {
   if (req.body.bodyMessage.trim() === "")
-    return res.status(400).json({ error: "Must not be empty" });
+    return res.status(400).json({ comment: "Must not be empty" });
 
   const newComment = {
     bodyMessage: req.body.bodyMessage,
