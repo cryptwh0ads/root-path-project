@@ -202,3 +202,59 @@ exports.getAuthUser = (req, res) => {
       return res.status(500).json({ error: err.code });
     });
 };
+
+exports.getAnotherUserBio = (req, res) => {
+  let userData = {};
+
+  db.doc(`/users/${req.params.shortName}`)
+    .get()
+    .then((doc) => {
+      if (doc.exists) {
+        userData.user = doc.data();
+        return db
+          .collection("posts")
+          .where("shortName", "==", req.params.shortName)
+          .orderBy("createdAt", "desc")
+          .get();
+      } else {
+        return res.status(404).json({ error: "User not found" });
+      }
+    })
+    .then((data) => {
+      userData.posts = [];
+      data.forEach((doc) => {
+        userData.posts.push({
+          bodyMessage: doc.data().bodyMessage,
+          createdAt: doc.data().createdAt,
+          shortName: doc.data().shortName,
+          userImage: doc.data().userImage,
+          likeCount: doc.data().likeCount,
+          commentCount: doc.data().commentCount,
+          postId: doc.id,
+        });
+      });
+      return res.json(userData);
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
+
+exports.markNotificationAsRead = (req, res) => {
+  let batch = db.batch();
+
+  req.body.forEach((notificationId) => {
+    const notification = db.doc(`/notifications/${notificationId}`);
+    batch.update(notification, { read: true });
+  });
+  batch
+    .commit()
+    .then(() => {
+      return res.json({ message: "Notifications marked as read" });
+    })
+    .catch((err) => {
+      console.error(err);
+      return res.status(500).json({ error: err.code });
+    });
+};
