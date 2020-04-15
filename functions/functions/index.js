@@ -18,6 +18,8 @@ const {
   uploadImage,
   addUserBio,
   getAuthUser,
+  getAnotherUserBio,
+  markNotificationAsRead,
 } = require("./routes/users");
 
 /**
@@ -35,7 +37,7 @@ app.get("/post/:postId/unlike", BAuth, unlikePost);
 app.delete("/post/:postId", BAuth, deletePost);
 
 /**
- * SESSION ROUTE
+ * SESSION / USER ROUTE
  */
 
 app.get("/user", BAuth, getAuthUser);
@@ -47,7 +49,10 @@ app.post("/login", login);
 app.post("/user/image", BAuth, uploadImage);
 // Update user's bio
 app.post("/user", BAuth, addUserBio);
-
+// Get another user's bio
+app.get("/user/:shortName", getAnotherUserBio);
+// Mark the notifications as read
+app.post("/notifications", BAuth, markNotificationAsRead);
 exports.api = functions.https.onRequest(app);
 
 exports.createNotificationOnLike = functions.firestore

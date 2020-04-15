@@ -35,6 +35,20 @@ This API was written in NodeJS (Firebase).
 }
 ```
 
+#### Mark notifications as read (need auth)
+
+`POST /api/notifications`: mark notifications as read.
+
+#### Body example
+
+```JSON
+[
+    "some notification's id here",
+    "some notification's id here"
+]
+```
+> **Note**: This route only need an array with notification's id.
+
 #### Like a post (need auth)
 
 `GET /api/post/:postId/like`: make a liked post.
@@ -124,3 +138,9 @@ This API was written in NodeJS (Firebase).
 `Get /api/user`: get authenticated user's info. (Need auth)
 
 > **Note**: This route, don't need a body.
+
+#### Get Any User's info
+
+`Get /api/user/:shortName`: get user's info.
+
+> **Note**: This route, don't need a body, only user's shortName params.
