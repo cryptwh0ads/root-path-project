@@ -1,6 +1,6 @@
 # Root Path Prototype API
 
-This API was written in NodeJS (Firebase).
+This API was written in NodeJS (w/ Firebase).
 
 > **Remember**: This project has been in development phase
 
@@ -67,11 +67,11 @@ This API was written in NodeJS (Firebase).
 
 > **Note**: This route, don't need a body.
 
-#### Get posts
+#### Get posts (need auth)
 
 `GET /api/posts`: gets all posts.
 
-#### Get a post detail
+#### Get a post detail (need auth)
 
 `GET /api/post/:postId`: get all details for a post.
 
@@ -105,9 +105,9 @@ This API was written in NodeJS (Firebase).
 }
 ```
 
-#### Upload profile image
+#### Upload profile image (need auth)
 
-`POST /api/user/image`: update profile picture. (Need auth)
+`POST /api/user/image`: update profile picture.
 
 #### Body example
 
@@ -117,9 +117,9 @@ This API was written in NodeJS (Firebase).
 
 > **Note**: The endpoint expect a image file type, and reject all other file type.
 
-#### Update User's Bio
+#### Update User's Bio (need auth)
 
-`POST /api/user`: update profile bio. (Need auth)
+`POST /api/user`: update profile bio.
 
 #### Body example
 
@@ -133,9 +133,9 @@ This API was written in NodeJS (Firebase).
 
 > **Note**: You don't need to add 'http', but if your website have SSL (https), add it.
 
-#### Get User authenticated info
+#### Get User authenticated info (Need auth)
 
-`Get /api/user`: get authenticated user's info. (Need auth)
+`Get /api/user`: get authenticated user's info. 
 
 > **Note**: This route, don't need a body.
 
