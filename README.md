@@ -5,6 +5,11 @@ The new journey to #create a #SocialMedia about #Technology
 $ sudo chmod -x just-do-it.sh
 $ ./just-do-it.sh
 ```
+---
+
+## See the API v1.0
+
+- API documentation <a href="https://github.com/cryptwh0ads/root-path-project/tree/baseline/documentation" target="_blank">`here!`</a> 
 
 ---
 
