@@ -22,17 +22,17 @@ class Home extends Component {
 
   render() {
     let recentPosts = this.state.posts ? (
-      this.state.posts.map((post) => <Posts data={post} />)
+      this.state.posts.map((post) => <Posts data={post} key={post.postId} />)
     ) : (
       <p>Loading ...</p>
     );
     return (
       <Grid container spacing={10}>
-        <Grid item sm={4} xs={12}>
-          <p>Profile Contents</p>
-        </Grid>
         <Grid item sm={8} xs={12}>
           {recentPosts}
+        </Grid>
+        <Grid item sm={4} xs={12}>
+          <p>Profile Contents</p>
         </Grid>
       </Grid>
     );
