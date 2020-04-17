@@ -55,6 +55,8 @@ app.get("/user/:shortName", getAnotherUserBio);
 app.post("/notifications", BAuth, markNotificationAsRead);
 exports.api = functions.https.onRequest(app);
 
+response.set("Access-Control-Allow-Origin", "*");
+
 exports.createNotificationOnLike = functions.firestore
   .document("likes/{id}")
   .onCreate((snapshot) => {
